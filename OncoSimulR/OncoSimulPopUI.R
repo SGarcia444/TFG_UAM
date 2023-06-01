@@ -1,0 +1,235 @@
+tabPanelOncoSimulPop <-
+  sidebarLayout(
+    sidebarPanel(
+      "Attributes",
+      navlistPanel(
+        widths = c(10, 8),
+        tabPanel("AllFitnessEffects",
+                 icon = imageOutput("oncoSimulPop_allFitnessEffectsStatus", inline = TRUE)
+        ),
+        tabPanel("Model",
+                 icon = imageOutput("oncoSimulPop_modelStatus", inline = TRUE)
+        ),
+        tabPanel("Muation rate",
+                 icon = imageOutput("oncoSimulPop_mutationRateStatus", inline = TRUE)
+        ),
+        tabPanel("Detection Size",
+                 icon = imageOutput("oncoSimulPop_detectionSizeStatus", inline = TRUE)),
+        tabPanel("Detection Drivers",
+                 icon = imageOutput("oncoSimulPop_detectionDriversStatus", inline = TRUE)
+        ),
+        tabPanel("Init Size",
+                 icon = imageOutput("oncoSimulPop_initSizeStatus", inline = TRUE)
+        ),
+        tabPanel("Extra Time",
+                 icon = imageOutput("oncoSimulPop_extraTimeStatus", inline = TRUE)
+        ),
+        tabPanel("Final Time",
+                 icon = imageOutput("oncoSimulPop_finalTimeStatus", inline = TRUE)
+        ),
+        tabPanel("Maximum Memory",
+                 icon = imageOutput("oncoSimulPop_maxMemoryStatus", inline = TRUE)
+        ),
+        tabPanel("Maximum Wall Time",
+                 icon = imageOutput("oncoSimulPop_maxWallTimeStatus", inline = TRUE)
+        ),
+        tabPanel("Maximum Tries",
+                 icon = imageOutput("oncoSimulPop_maxTriesStatus", inline = TRUE)
+        )
+      )
+    ),
+    mainPanel(
+      # AllFitnessEffects
+      tabsetPanel(
+        tabPanel(
+          "AllFitnessEffects Arguments",
+          fluidPage(
+            #### SELECT INPUT REGION
+            h2("Select the Input type to determine the AllFitness Object"),
+            fluidRow(
+              column(
+                6,
+                radioButtons("oncoSimulPop_allFitnessEffectsType", label = "INPUT TYPE", choices = list(
+                  "Text File" = 1,
+                  "Fill Data Table" = 2
+                ))
+              ),
+              column(
+                6,
+                checkboxInput("oncoSimulPop_frequencyDepedentFitnessCheckbox", "Frequency dependent fitness")
+              )
+            ),
+            
+            ### INPUT TYPE 1(FILE)
+            fluidRow(
+              conditionalPanel(
+                "input.oncoSimulPop_allFitnessEffectsType == 1",
+                fluidRow(
+                  column(
+                    6,
+                    fileInput("oncoSimulPop_allFitnessEffectsFileInput", label = h3("Enter fitness file"), accept=".txt")
+                  )
+                ),
+                fluidRow(
+                  column(
+                    6,
+                    dataTableOutput("oncoSimulPop_allfitnessResultTable")
+                  )
+                )
+              )
+            ),
+            ### INPUT TYPE 2 DT
+            fluidRow(
+              conditionalPanel(
+                "input.oncoSimulPop_allFitnessEffectsType == 2",
+                ## SELECT DT TYPE
+                fluidRow(
+                  column(
+                    10,
+                    radioButtons("oncoSimulPop_allFitnessEffectsDataTableType", label = "Data Table TYPE", choices = list(
+                      "Logical Truth Table Format" = 1,
+                      "Raw Format" = 2
+                    ))
+                  )
+                ),
+                fluidRow(
+                  ## DT TYPE 1 REGION
+                  conditionalPanel(
+                    "input.oncoSimulPop_allFitnessEffectsDataTableType == 1",
+                    fluidRow(
+                      column(
+                        6,
+                        numericInput("oncoSimulPop_NumGenes", "Enter number of Genes(max 10)", value = 1, min = 1, max = 10)
+                      )
+                    )
+                  )
+                ),
+                fluidRow(
+                  # DT TYPE REGION 2
+                  conditionalPanel(
+                    "input.oncoSimulPop_allFitnessEffectsDataTableType == 2",
+                    fluidRow(
+                      column(
+                        6,
+                        numericInput("oncoSimulPop_NumRowsDataTableOpt2", "Enter number of Rows", value = 1, min = 1)
+                      )
+                    )
+                  )
+                ),
+                fluidRow(
+                  column(12,
+                         DTOutput("allFitnessEffectsDTEditableOncoSimulPop"),
+                         height = "100"
+                  )
+                )
+              )
+            )
+          )
+        ),
+        tabPanel(
+          "OncoSimulPop Arguments",
+          fluidPage(
+            fluidRow(
+              column(
+                6,
+                selectInput("oncoSimulPop_selectModel",
+                            label = h3("Select Model"),
+                            choices = list(
+                              "Bozic", "Exp",
+                              "Arb", "McFL", "McFLD", ""
+                            ), selected = ""
+                ),
+              ),
+              column(6,
+                numericInput("oncoSimulPop_nIndiv",
+                             label = h3("Number of Individuals"),
+                             value = 4
+                             )
+              )
+            )
+          ),
+          fluidRow(
+            column(
+              6,
+              numericInput("oncoSimulPop_mutationRate", h3("Mutation Rate"),
+                           value = 1E-6
+              ),
+              numericInput("oncoSimulPop_detectionSize", h3("Detection Size"),
+                           value = "NA"
+              ),
+              numericInput("oncoSimulPop_detectionDrivers", h3("Detection Drivers"),
+                           value = "NA"
+              ),
+            ),
+            column(
+              6,
+              numericInput("oncoSimulPop_initSize", h3("Init Size"),
+                           value = 500
+              ),
+              numericInput("oncoSimulPop_extraTime", h3("Extra Time"),
+                           value = 0
+              ),
+              numericInput("oncoSimulPop_finalTime", h3("Final Time"),
+                           value = 2000
+              )
+            )
+          ),
+          fluidRow(
+            column(
+              6,
+              checkboxInput("oncoSimulPop_onlyCancer", h3("Only Cancer"),
+                            value = TRUE
+              ),
+              checkboxInput("oncoSimulPop_mutationPropGrowth", h3("Mutation Proprotional to Growth"),
+                            value = FALSE
+              ),
+              checkboxInput("oncoSimulPop_errorHitMaxTries", h3("errorHitMaxTries"),
+                            value = TRUE
+              ),
+              checkboxInput("oncoSimulPop_errorHitWallTime", h3("Error Hit Wall Time"),
+                            value = TRUE
+              ),
+              checkboxInput("oncoSimulPop_AND_DrvProbExit", h3("AND Condition to reach cancer"),
+                            value = TRUE
+              )
+            ),
+            column(
+              6,
+              numericInput("oncoSimulPop_maxMemory", h3("Maximum Memory"),
+                           value = 2000
+              ),
+              numericInput("oncoSimulPop_maxWallTime", h3("Maximum Wall Time"),
+                           value = 200
+              ),
+              numericInput("oncoSimulPop_maxNumTries", h3("Maximum Tries"),
+                           value = 500
+              ),
+              numericInput("oncoSimulPop_verbosity", h3("Verbosity"),
+                           value = 0
+              )
+            )
+          )
+        ),
+        tabPanel(
+          "Summary",
+          fluidPage(
+            #sidebarPanel(
+            #  selectInput("oncoSimulPop_plotType", "Plot type", choices = list("line", "stacked", "stream")),
+             # selectInput("oncoSimulPop_plotShow", "Plot Show", choice = list("genotypes", "drivers")),
+              #textInput("oncoSimulPop_plotTitle", "Plot Title")
+            #),
+            fluidRow(
+              column(
+                6,
+                actionButton("oncoSimulPop_runExecutionButton", h4("Run Execution of OncosimulPop")),
+                br(),
+                br()
+              )
+            ),
+            fluidRow(dataTableOutput("oncoSimulPop_summary")),
+            fluidRow(downloadButton(outputId = "oncoSimulPop_down", label = "Download the plot"))
+          )
+        )
+      )
+    )
+  )
