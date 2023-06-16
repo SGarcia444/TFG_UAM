@@ -12,10 +12,10 @@ source("OncoSimulPopServer.R")
 
 # Define UI ----
 ui <- navbarPage(
-  "ONCOSIMULR",
+  "OncoSimulR",
   includeCSS("css/oncoSimulRPretty.css"),
-  tabPanel("OncoSimulIndiv", tabPanelOncoSimulIndiv),
-  tabPanel("OncoSimulPop", tabPanelOncoSimulPop),
+  tabPanel("oncoSimulIndiv", tabPanelOncoSimulIndiv),
+  tabPanel("oncoSimulPop", tabPanelOncoSimulPop),
   
 )
 
