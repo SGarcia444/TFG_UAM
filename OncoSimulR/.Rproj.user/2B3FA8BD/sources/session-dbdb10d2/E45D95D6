@@ -1,27 +1,26 @@
 {
-    "id": "7B00710E",
-    "path": "~/TFG_UAM/OncoSimulR/OncoSimulPopUI.R",
-    "project_path": "OncoSimulPopUI.R",
+    "id": "E45D95D6",
+    "path": "~/TFG_UAM/OncoSimulR/app.R",
+    "project_path": "app.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1686948943633.0,
+    "created": 1678010239930.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 1,
     "properties": {
-        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "129,12",
-        "scrollLine": "128"
+        "cursorPosition": "14,13",
+        "scrollLine": "8"
     },
     "folds": "",
-    "lastKnownWriteTime": 1686949026,
+    "lastKnownWriteTime": 1686951668,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1686949026627,
+    "last_content_update": 1686951668677,
     "read_only": false,
     "read_only_alternatives": []
 }

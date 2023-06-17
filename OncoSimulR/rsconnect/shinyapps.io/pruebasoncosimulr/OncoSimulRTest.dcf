@@ -1,0 +1,13 @@
+name: OncoSimulRTest
+title: OncoSimulRTest
+username:
+account: pruebasoncosimulr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9324261
+bundleId: 7356582
+url: https://pruebasoncosimulr.shinyapps.io/OncoSimulRTest/
+when: 1686997726.7052
+lastSyncTime: 1686997726.70522
+asMultiple: FALSE
+asStatic: FALSE
